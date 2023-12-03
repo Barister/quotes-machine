@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { useState } from 'react';
+
+export default function Card() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <blockquote className='quote-box__content'>
+        <p>Nothing to remember!</p>
+        <cite>- Evgenii Liskevich</cite>
+      </blockquote>
+      <div className='quote-box__panel'>
+        <div className='quote-box__socials socials'>
+          <a>Twitter<i className="fa-brands fa-twitter"></i></a>
+          <a>Twitter<i className="fa-brands fa-square-twitter"></i></a>
+        </div>
+        <div>
+          <button>Previous</button>
+          <button>New Quote</button>
+        </div>
+      </div>
+    </>
+  )
 }
-
-export default App;

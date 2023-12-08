@@ -10401,12 +10401,59 @@ body.scroll-lock {
 .title {
   max-width: 100%;
   white-space: nowrap;
-  font-size: clamp(3.6rem, 6vw, 64px);
-  margin-bottom: clamp(2rem, 6vw, 64px);
+  font-size: clamp(3.6rem, 6vw, 48px);
+  margin-bottom: clamp(2rem, 6vw, 40px);
+}
+
+.btn {
+  border: 1px solid #2D2D2D;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
 #quote-box {
-  min-height: 400px;
-  width: 500px;
+  min-height: 200px;
+  max-width: 500px;
   background-color: #fff;
+  padding: 40px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-box__content {
+  flex: 1;
+  margin-bottom: 20px;
+}
+.quote-box__content p {
+  margin-bottom: 20px;
+  font-size: clamp(1.8rem, 3vw, 24px);
+}
+.quote-box__content cite {
+  display: block;
+  text-align: right;
+  font-size: clamp(1.2rem, 3vw, 16px);
+}
+.quote-box__panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.quote-box__socials a i {
+  padding-left: 5px;
+}
+.quote-box__socials a:not(:last-child) {
+  margin-right: 5px;
+}
+.quote-box__socials a:hover {
+  color: rgba(143, 36, 36, 0.6039215686);
+}
+.quote-box__buttons button:not(:last-child) {
+  margin-right: 5px;
+}
+.quote-box__buttons button:hover {
+  background-color: rgba(143, 36, 36, 0.6039215686);
+  color: #fff;
+  border: 1px solid rgba(143, 36, 36, 0.6039215686);
 }

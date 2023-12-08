@@ -69,11 +69,15 @@ $tablets: 991.98px;
 $mobile: 767.98px;
 $smallMobile: 479.98px;
 
+// color palette
+$mainColor: #8f24249a;
+
+
 .wrapper {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: #8f24249a;
+  background-color: $mainColor;
 }
 
 
@@ -98,14 +102,78 @@ $smallMobile: 479.98px;
   max-width: 100%;
   //text-wrap: nowrap;
   white-space: nowrap;
-  font-size: clamp(3.6rem, 6vw, 64px);
-  margin-bottom: clamp(2.0rem, 6vw, 64px);
+  font-size: clamp(3.6rem, 6vw, 48px);
+  margin-bottom: clamp(2.0rem, 6vw, 40px);
+}
+
+.btn {
+  border: 1px solid #2D2D2D;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
 
+// Main styles
 
 #quote-box {
-  min-height: 400px;
-  width: 500px;
+  min-height: 200px;
+  max-width: 500px;
   background-color: #fff;
+  padding: 40px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.quote-box {
+
+  &__content {
+    flex: 1;
+    margin-bottom: 20px;
+    p {
+      margin-bottom: 20px;
+      font-size: clamp(1.8rem, 3vw, 24px);
+    }
+    cite {
+      display: block;
+      text-align: right;
+      font-size: clamp(1.2rem, 3vw, 16px);
+    }
+  }
+
+  &__panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__socials {
+    a {
+      i {
+        padding-left: 5px;
+      }
+    }
+    a:not(:last-child) {
+      margin-right: 5px;
+      
+    }
+    a:hover {
+      color: $mainColor;
+    }
+  }
+
+  &__buttons {
+    
+    button:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    button:hover {
+      background-color: $mainColor;
+      color: #fff;
+      border: 1px solid $mainColor;
+    }
+  }
 }

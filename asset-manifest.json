@@ -1,16 +1,21 @@
 {
   "files": {
-    "main.css": "/quotes-machine/static/css/main.f855e6bc.css",
-    "main.js": "/quotes-machine/static/js/main.cdbaffb1.js",
-    "static/js/787.f3d44e66.chunk.js": "/quotes-machine/static/js/787.f3d44e66.chunk.js",
-    "static/media/logo.svg": "/quotes-machine/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/quotes-machine/static/css/main.b35a7cae.css",
+    "main.js": "/quotes-machine/static/js/main.fbfbfdc5.js",
+    "static/media/fa-solid-900.ttf": "/quotes-machine/static/media/fa-solid-900.4a2cd718d7031b732e76.ttf",
+    "static/media/fa-brands-400.ttf": "/quotes-machine/static/media/fa-brands-400.150de8eaa454d669c405.ttf",
+    "static/media/fa-solid-900.woff2": "/quotes-machine/static/media/fa-solid-900.bb975c966c37455a1bc3.woff2",
+    "static/media/fa-brands-400.woff2": "/quotes-machine/static/media/fa-brands-400.e033a13ee751afc1860c.woff2",
+    "static/media/fa-regular-400.ttf": "/quotes-machine/static/media/fa-regular-400.d87474231f4192884802.ttf",
+    "static/media/fa-regular-400.woff2": "/quotes-machine/static/media/fa-regular-400.3223dc79c1adee56370b.woff2",
+    "static/media/fa-v4compatibility.ttf": "/quotes-machine/static/media/fa-v4compatibility.0e3a648be390bd8cb094.ttf",
+    "static/media/fa-v4compatibility.woff2": "/quotes-machine/static/media/fa-v4compatibility.68577e40f3e70067b5da.woff2",
     "index.html": "/quotes-machine/index.html",
-    "main.f855e6bc.css.map": "/quotes-machine/static/css/main.f855e6bc.css.map",
-    "main.cdbaffb1.js.map": "/quotes-machine/static/js/main.cdbaffb1.js.map",
-    "787.f3d44e66.chunk.js.map": "/quotes-machine/static/js/787.f3d44e66.chunk.js.map"
+    "main.b35a7cae.css.map": "/quotes-machine/static/css/main.b35a7cae.css.map",
+    "main.fbfbfdc5.js.map": "/quotes-machine/static/js/main.fbfbfdc5.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.cdbaffb1.js"
+    "static/css/main.b35a7cae.css",
+    "static/js/main.fbfbfdc5.js"
   ]
 }

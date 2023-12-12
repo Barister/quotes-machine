@@ -10401,7 +10401,7 @@ body.scroll-lock {
 .title {
   max-width: 100%;
   white-space: nowrap;
-  font-size: clamp(3.6rem, 6vw, 48px);
+  font-size: clamp(2.4rem, 6vw, 48px);
   margin-bottom: clamp(2rem, 6vw, 40px);
 }
 
@@ -10413,22 +10413,29 @@ body.scroll-lock {
 
 #quote-box {
   min-height: 200px;
-  max-width: 500px;
+  width: min(100%, 500px);
   background-color: #fff;
   padding: 40px 30px 20px 30px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+  box-shadow: rgba(13, 35, 67, 0.17) 3px 3px 15px 10px;
 }
 
 .quote-box__content {
   flex: 1;
   margin-bottom: 20px;
+  position: relative;
 }
 .quote-box__content p {
-  margin-bottom: 20px;
   font-size: clamp(1.8rem, 3vw, 24px);
 }
+.quote-box__content p:nth-child(2) {
+  display: inline;
+  padding-left: 10px;
+}
 .quote-box__content cite {
+  margin-top: 20px;
   display: block;
   text-align: right;
   font-size: clamp(1.2rem, 3vw, 16px);
@@ -10443,7 +10450,7 @@ body.scroll-lock {
 .quote-box__socials a i {
   padding-left: 5px;
 }
-.quote-box__socials a:not(:last-child) {
+.quote-box__socials button:not(:last-child) {
   margin-right: 5px;
 }
 .quote-box__socials a:hover {
@@ -10456,4 +10463,40 @@ body.scroll-lock {
   background-color: rgba(143, 36, 36, 0.6039215686);
   color: #fff;
   border: 1px solid rgba(143, 36, 36, 0.6039215686);
+}
+
+.fa-quote-left {
+  font-size: clamp(1.8rem, 3vw, 24px);
+}
+
+.quote-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.quote-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.quote-appear {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.quote-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.quote-exit {
+  opacity: 1;
+}
+
+.quote-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }

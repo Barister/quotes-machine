@@ -1,37 +1,112 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { FacebookShareButton, FacebookIcon } from "react-share";
+import { Helmet } from "react-helmet";
 
-function QuoteQuery({ quoteData, setQuoteData }) {
+
+function QuoteQuery({ quoteData, quoteLoaded }) {
 
   return (
-    <>
-      <p id='text'>{quoteData.quote}</p>
-      <cite id='author'>- {quoteData.author}</cite>
-    </>
+
+    <CSSTransition in={quoteLoaded} appear={true} timeout={300} classNames='quote' mountOnEnter={true}>
+      <div>
+        <i className="fa-solid fa-quote-left"></i>
+        <p id='text'>{quoteData.quote}</p>
+        <cite id='author'>- {quoteData.author}</cite>
+      </div>
+    </CSSTransition>
+
   );
 }
 
-function QuoteRender({ quoteData, setQuoteData, quoteLoaded }) {
+
+
+
+const QuoteRender = React.memo(({ quoteData, setQuoteData, quoteLoaded }) => {
   return (
-    <blockquote className='quote-box__content'>
-      <QuoteQuery quoteData={quoteData} setQuoteData={setQuoteData} />
+
+    <blockquote className={`quote-box__content`}>
+      <QuoteQuery quoteData={quoteData} quoteLoaded={quoteLoaded} />
     </blockquote>
+
+  )
+});
+
+function HeadHealmet({ quoteData }) {
+  return (
+    <>
+      <Helmet>
+        <title>My Website</title>
+        <meta property="og:url" content="https://barister.github.io/quotes-machine/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="The Random Quote Machine" />
+        <meta property="og:description"
+          content={`Dedicated to our parents: ${quoteData.quote} - ${quoteData.author}`} />
+      </Helmet>
+    </>
+  )
+}
+
+
+function FacebookMediaButton({ quoteData }) {
+
+  return (
+    <FacebookShareButton
+      url={"https://barister.github.io/quotes-machine/"}
+      hashtag="#ourparents"
+    >
+      <a href='#' id='facebook-quote' target='_blank'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></a>
+      {/* <FacebookIcon bgStyle={{
+        fill: "#2D2D2D",
+      }} size={15} round={true} /> */}
+    </FacebookShareButton>
   );
+}
+
+function TwitterShare({ quoteData }) {
+
+  const quote = quoteData.quote;
+  const tweetUnshortened = `"${quote}" - ${quoteData.author}`;
+  const shortUrl = `https://shorturl.at/kwEFY`;
+
+  const totalTweet = 280 - (tweetUnshortened.length + shortUrl.length + 11 + 4);
+
+  //console.log('tweetQuote:', tweetUnshortened, totalTweet);
+
+  let tweetShortened = '';
+
+  if (totalTweet <= 0) {
+    const quoteShort = quote.slice(0, totalTweet);
+    tweetShortened = `"${quoteShort + '...'}" - ${quoteData.author}`;
+  } else {
+    tweetShortened = tweetUnshortened;
+  }
+
+  //console.log('tweetShortened:', tweetShortened);
+
+  return (
+    <a href={`https://twitter.com/intent/tweet?text=${tweetShortened}&hashtags=ourparents&url=${shortUrl}`} id='tweet-quote' target='_blank' rel="noreferrer">Twitter<i className="fa-brands fa-square-twitter"></i></a>
+  )
 }
 
 export default function App() {
   const [quoteData, setQuoteData] = useState({
     quote: '',
+    shortQuote: '',
     author: ''
   });
 
   const [quoteLoaded, setQuoteLoaded] = useState(false);
+
+
+
 
   const handleNextQuote = () => {
     fetchData();
   };
 
   const handlePreviousQuote = () => {
-    fetchData();
+    console.log('Нужна предыдущая цитата!!!');
   };
 
   const fetchData = async () => {
@@ -61,11 +136,12 @@ export default function App() {
     } catch (error) {
       console.error('Error:', error);
       setQuoteData({
-        quote: 'Error loading quote',
-        author: ''
+        quote: 'Error loading quote from server',
+        author: 'Evgenii Liskevich'
       });
     } finally {
-      setQuoteLoaded(true); // Устанавливаем флаг загрузки в true после получения данных или в случае ошибки
+      setQuoteLoaded(true);
+      //console.log('quoteLoad = true') // Устанавливаем флаг загрузки в true после получения данных или в случае ошибки
     }
   };
 
@@ -76,17 +152,23 @@ export default function App() {
   if (quoteLoaded) {
     return (
       <>
+
+        <HeadHealmet quoteData={quoteData} />
+
+
         <QuoteRender quoteData={quoteData} setQuoteData={setQuoteData} quoteLoaded={quoteLoaded} />
         <div className='quote-box__panel'>
           <div className='quote-box__socials socials'>
-            <a href='#' id='facebook-quote'>Facebook<i className="fa-brands fa-facebook"></i></a>
-            <a href='twitter.com/intent/tweet' id='tweet-quote'>Twitter<i className="fa-brands fa-square-twitter"></i></a>
+
+            <FacebookMediaButton quoteData={quoteData} />
+            <TwitterShare quoteData={quoteData} />
+
           </div>
           <div className='quote-box__buttons'>
             <button className='btn' id='previous-quote' onClick={handlePreviousQuote}>Previous</button>
             <button className='btn' id='new-quote' onClick={handleNextQuote}>New Quote</button>
           </div>
-        </div>
+        </div >
       </>
     );
   }

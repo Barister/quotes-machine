@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FacebookShareButton, FacebookIcon } from "react-share";
-import { Helmet } from "react-helmet";
+import { FacebookShareButton } from "react-share";
+
 
 
 function QuoteQuery({ quoteData, quoteLoaded }) {
@@ -32,28 +32,13 @@ const QuoteRender = React.memo(({ quoteData, setQuoteData, quoteLoaded }) => {
   )
 });
 
-function HeadHealmet({ quoteData }) {
-  return (
-    <>
-      <Helmet>
-        <title>My Website</title>
-        <meta property="og:url" content="https://barister.github.io/quotes-machine/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="The Random Quote Machine" />
-        <meta property="og:description"
-          content={`Dedicated to our parents: ${quoteData.quote} - ${quoteData.author}`} />
-      </Helmet>
-    </>
-  )
-}
-
-
 function FacebookMediaButton({ quoteData }) {
 
   return (
     <FacebookShareButton
       url={"https://barister.github.io/quotes-machine/"}
       hashtag="#ourparents"
+      quote={`"${quoteData.quote}" - ${quoteData.author}`}
     >
       <a href='#' id='facebook-quote' target='_blank'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></a>
       {/* <FacebookIcon bgStyle={{
@@ -152,10 +137,6 @@ export default function App() {
   if (quoteLoaded) {
     return (
       <>
-
-        <HeadHealmet quoteData={quoteData} />
-
-
         <QuoteRender quoteData={quoteData} setQuoteData={setQuoteData} quoteLoaded={quoteLoaded} />
         <div className='quote-box__panel'>
           <div className='quote-box__socials socials'>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { FacebookShareButton } from "react-share";
 
-
+const siteLink = "https://barister.github.io/quotes-machine/";
+const shortUrl = `https://shorturl.at/kwEFY`;
 
 function QuoteQuery({ quoteData, quoteLoaded }) {
 
@@ -12,7 +13,7 @@ function QuoteQuery({ quoteData, quoteLoaded }) {
       <div>
         <i className="fa-solid fa-quote-left"></i>
         <p id='text'>{quoteData.quote}</p>
-        <cite id='author'>- {quoteData.author}</cite>
+        <cite>- <span id='author'>{quoteData.author}</span></cite>
       </div>
     </CSSTransition>
 
@@ -22,7 +23,7 @@ function QuoteQuery({ quoteData, quoteLoaded }) {
 
 
 
-const QuoteRender = React.memo(({ quoteData, setQuoteData, quoteLoaded }) => {
+function QuoteRender({ quoteData, quoteLoaded }) {
   return (
 
     <blockquote className={`quote-box__content`}>
@@ -30,20 +31,18 @@ const QuoteRender = React.memo(({ quoteData, setQuoteData, quoteLoaded }) => {
     </blockquote>
 
   )
-});
+};
 
 function FacebookMediaButton({ quoteData }) {
 
   return (
     <FacebookShareButton
-      url={"https://barister.github.io/quotes-machine/"}
+      url={siteLink}
       hashtag="#ourparents"
       quote={`"${quoteData.quote}" - ${quoteData.author}`}
     >
       <a href='#' id='facebook-quote' target='_blank'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></a>
-      {/* <FacebookIcon bgStyle={{
-        fill: "#2D2D2D",
-      }} size={15} round={true} /> */}
+
     </FacebookShareButton>
   );
 }
@@ -52,7 +51,7 @@ function TwitterShare({ quoteData }) {
 
   const quote = quoteData.quote;
   const tweetUnshortened = `"${quote}" - ${quoteData.author}`;
-  const shortUrl = `https://shorturl.at/kwEFY`;
+
 
   const totalTweet = 280 - (tweetUnshortened.length + shortUrl.length + 11 + 4);
 
@@ -74,6 +73,8 @@ function TwitterShare({ quoteData }) {
   )
 }
 
+let quotesHistory = [];
+
 export default function App() {
   const [quoteData, setQuoteData] = useState({
     quote: '',
@@ -84,14 +85,30 @@ export default function App() {
   const [quoteLoaded, setQuoteLoaded] = useState(false);
 
 
-
-
   const handleNextQuote = () => {
     fetchData();
   };
 
   const handlePreviousQuote = () => {
-    console.log('Нужна предыдущая цитата!!!');
+    // console.log('Нужна предыдущая цитата!!!');
+
+    // console.log('предпоследний элемент массива:', quotesHistory[quotesHistory.length - 2]);
+
+    // console.log('последний элемент массива:', quotesHistory[quotesHistory.length - 1]);
+    if (quotesHistory.length >= 2) {
+
+      setQuoteData(quotesHistory[quotesHistory.length - 2]);
+      setQuoteLoaded(true);
+
+      // console.log('quotesHistory before pop:', quotesHistory);
+
+      quotesHistory = quotesHistory.slice(0, -2)
+
+      // console.log('quotesHistory after pop:', quotesHistory);
+    }
+
+
+
   };
 
   const fetchData = async () => {
@@ -114,6 +131,9 @@ export default function App() {
       }
 
       const result = await response.json();
+
+
+
       setQuoteData({
         quote: result[0].quote,
         author: result[0].author
@@ -135,6 +155,14 @@ export default function App() {
   }, []);
 
   if (quoteLoaded) {
+
+
+
+    quotesHistory.push(quoteData);
+
+    // console.log(quotesHistory);
+
+
     return (
       <>
         <QuoteRender quoteData={quoteData} setQuoteData={setQuoteData} quoteLoaded={quoteLoaded} />

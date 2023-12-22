@@ -10447,13 +10447,13 @@ body.scroll-lock {
   gap: 20px;
   flex-wrap: wrap;
 }
-.quote-box__socials a i {
+.quote-box__socials a i, .quote-box__socials button i {
   padding-left: 5px;
 }
 .quote-box__socials button:not(:last-child) {
   margin-right: 5px;
 }
-.quote-box__socials a:hover {
+.quote-box__socials a:hover, .quote-box__socials button:hover {
   color: rgba(143, 36, 36, 0.6039215686);
 }
 .quote-box__buttons button:not(:last-child) {
@@ -10471,24 +10471,36 @@ body.scroll-lock {
 
 .quote-enter {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 .quote-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}
+
+.quote-enter-done {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
 }
 
 .quote-appear {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 .quote-appear-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}
+
+.quote-appear-done {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
 }
 
 .quote-exit {
@@ -10497,6 +10509,6 @@ body.scroll-lock {
 
 .quote-exit-active {
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
 }

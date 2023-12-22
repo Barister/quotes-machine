@@ -158,7 +158,7 @@ $mainColor: #8f24249a;
   }
 
   &__socials {
-    a {
+    a, button {
       i {
         padding-left: 5px;
       }
@@ -167,7 +167,7 @@ $mainColor: #8f24249a;
       margin-right: 5px;
       
     }
-    a:hover {
+    a:hover, button:hover {
       color: $mainColor;
     }
   }
@@ -197,30 +197,45 @@ $mainColor: #8f24249a;
 
 .quote-enter {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 .quote-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  //transform: translateX(0);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}
+
+.quote-enter-done {
+  opacity: 1;
+  //transform: translateX(0);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
 }
 
 .quote-appear {
   opacity: 0;
   
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 .quote-appear-active {
   opacity: 1;
-
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
+  //transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
+}
+.quote-appear-done {
+  opacity: 1;
+  transform: scale(1);
+  //transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
 }
 .quote-exit {
   opacity: 1;
 }
 .quote-exit-active {
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
+  //transform: scale(0.9);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
 }

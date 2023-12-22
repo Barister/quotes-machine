@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { FacebookShareButton } from "react-share";
 
@@ -7,25 +7,25 @@ const shortUrl = `https://shorturl.at/kwEFY`;
 
 function QuoteQuery({ quoteData }) {
   return (
-    <CSSTransition in={true} appear={true} timeout={300} classNames='quote' mountOnEnter={true}>
-      <div>
-        <i className="fa-solid fa-quote-left"></i>
-        <p id='text'>{quoteData.quote}</p>
-        <cite>- <span id='author'>{quoteData.author}</span></cite>
-      </div>
-    </CSSTransition>
+    <>
+      <i className="fa-solid fa-quote-left"></i>
+      <p id='text'>{quoteData.quote}</p>
+      <cite>- <span id='author'>{quoteData.author}</span></cite>
+    </>
+
   );
 }
 
 function QuoteRender({ quoteData, quoteLoaded }) {
-
   return (
     <blockquote className={`quote-box__content`}>
-      {quoteLoaded && <QuoteQuery quoteData={quoteData} />}
+      <CSSTransition key={quoteData.quote} in={quoteLoaded} appear={true} timeout={500} classNames='quote' unmountOnExit>
+        <div>
+          {quoteLoaded && <QuoteQuery key={quoteData.quote} quoteData={quoteData} />}
+        </div>
+      </CSSTransition>
     </blockquote>
   );
-
-
 }
 
 function FacebookMediaButton({ quoteData }) {
@@ -35,7 +35,7 @@ function FacebookMediaButton({ quoteData }) {
       hashtag="#ourparents"
       quote={`"${quoteData.quote}" - ${quoteData.author}`}
     >
-      <a href='#' id='facebook-quote' target='_blank'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></a>
+      <div id='facebook-quote'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></div>
     </FacebookShareButton>
   );
 }
@@ -66,8 +66,6 @@ function TwitterShare({ quoteData }) {
   )
 }
 
-let quotesHistory = [];
-
 export default function App() {
   const [quoteData, setQuoteData] = useState({
     quote: '',
@@ -76,19 +74,10 @@ export default function App() {
   });
 
   const [quoteLoaded, setQuoteLoaded] = useState(false);
+  const [quotesHistory, setQuotesHistory] = useState([]);
+  const [currentKey, setCurrentKey] = useState(0);  // Добавляем текущий ключ
 
-  const handleNextQuote = () => {
-    fetchData();
-  };
-
-  const handlePreviousQuote = () => {
-    if (quotesHistory.length >= 2) {
-      setQuoteData(quotesHistory[quotesHistory.length - 2]);
-      quotesHistory = quotesHistory.slice(0, -1);
-    }
-  };
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const validCategories = ['dad', 'mom'];
       const randomCategory = validCategories[Math.floor(Math.random() * validCategories.length)];
@@ -112,23 +101,36 @@ export default function App() {
         author: result[0].author
       });
       setQuoteLoaded(true);
-      quotesHistory.push(result[0]);
+      setQuotesHistory(prev => [...prev, result[0]]);
+      setCurrentKey(prev => prev + 1);  // Обновляем текущий ключ
     } catch (error) {
       console.error('Error:', error);
       setQuoteData({
-        quote: 'Error loading quote from server',
+        quote: `Error loading quote from server: ${error}`,
         author: 'Evgenii Liskevich'
       });
     }
-  };
+  }, []);
+
+  const handleNextQuote = useCallback(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handlePreviousQuote = useCallback(() => {
+    if (quotesHistory.length >= 2) {
+      setQuoteData(quotesHistory[quotesHistory.length - 2]);
+      setQuotesHistory(prev => prev.slice(0, -1));
+      setCurrentKey(prev => prev + 1);  // Обновляем текущий ключ
+    }
+  }, [quotesHistory]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <>
-      <QuoteRender quoteData={quoteData} quoteLoaded={quoteLoaded} />
+      <QuoteRender key={currentKey} quoteData={quoteData} quoteLoaded={quoteLoaded} />
       <div className='quote-box__panel'>
         <div className='quote-box__socials socials'>
           <FacebookMediaButton quoteData={quoteData} />
@@ -142,3 +144,4 @@ export default function App() {
     </>
   );
 }
+

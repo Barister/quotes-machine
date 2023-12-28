@@ -1,0 +1,241 @@
+// font awesome connect
+
+@import 'icons_font';
+
+// Resetting style
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  &, &::before, &::after {
+     box-sizing: border-box;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+button, input {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+}
+
+
+
+// Main styles
+
+html, body {
+  height: 100%;
+  min-width: 320px;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: Roboto, sans-serif;
+  color: #2D2D2D;
+  &.scroll-lock {
+     overflow: hidden;
+  }
+}
+
+// variables
+
+$pc: 1440px;
+$tablets: 991.98px;
+$mobile: 767.98px;
+$smallMobile: 479.98px;
+
+// color palette
+$mainColor: #8f24249a;
+
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: $mainColor;
+}
+
+
+
+
+[class*="__container"] {
+  max-width: 144rem;
+  padding-left: clamp(1.0rem, 6vw, 6.0rem);
+  padding-right: clamp(1.0rem, 6vw, 6.0rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+// Modules
+
+.title {
+  max-width: 100%;
+  //text-wrap: nowrap;
+  white-space: nowrap;
+  font-size: clamp(2.4rem, 6vw, 48px);
+  margin-bottom: clamp(2.0rem, 6vw, 40px);
+}
+
+.btn {
+  border: 1px solid #2D2D2D;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+
+// Main styles
+
+#quote-box {
+  min-height: 200px;
+  width: min(100%,500px);
+  background-color: #fff;
+  padding: 40px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: rgba(13,35,67,.17) 3px 3px 15px 10px;
+}
+
+.quote-box {
+  &__content {
+    flex: 1;
+    margin-bottom: 20px;
+    position: relative;
+    p {
+      
+      font-size: clamp(1.8rem, 3vw, 24px);
+      &:nth-child(2) {
+        display: inline;
+        padding-left: 10px;
+      }
+    }
+    
+    
+    cite {
+      margin-top: 20px;
+      display: block;
+      text-align: right;
+      font-size: clamp(1.2rem, 3vw, 16px);
+    }
+  }
+
+  &__panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__socials {
+    a, button {
+      i {
+        padding-left: 5px;
+      }
+    }
+    button:not(:last-child) {
+      margin-right: 5px;
+      
+    }
+    a:hover, button:hover {
+      color: $mainColor;
+    }
+  }
+
+  .react-share__ShareButton {}
+
+  &__buttons {
+    
+    button:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    button:hover {
+      background-color: $mainColor;
+      color: #fff;
+      border: 1px solid $mainColor;
+    }
+  }
+}
+
+.fa-quote-left {
+  font-size: clamp(1.8rem, 3vw, 24px);
+}
+
+
+// react CSS Transition animation
+
+.quote-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.quote-enter-active {
+  opacity: 1;
+  //transform: translateX(0);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}
+
+.quote-enter-done {
+  opacity: 1;
+  //transform: translateX(0);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}
+
+.quote-appear {
+  opacity: 0;
+  
+  transform: scale(0.95);
+}
+.quote-appear-active {
+  opacity: 1;
+  transform: scale(1);
+  //transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
+}
+.quote-appear-done {
+  opacity: 1;
+  transform: scale(1);
+  //transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
+}
+.quote-exit {
+  opacity: 1;
+}
+.quote-exit-active {
+  opacity: 0;
+  //transform: scale(0.9);
+  transform: scale(1);
+  transition: opacity 300ms, transform 500ms;
+}

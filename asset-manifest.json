@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/quotes-machine/static/css/main.668ccbff.css",
-    "main.js": "/quotes-machine/static/js/main.190eb6c6.js",
+    "main.js": "/quotes-machine/static/js/main.8bdbad84.js",
     "static/media/fa-solid-900.ttf": "/quotes-machine/static/media/fa-solid-900.4a2cd718d7031b732e76.ttf",
     "static/media/fa-brands-400.ttf": "/quotes-machine/static/media/fa-brands-400.150de8eaa454d669c405.ttf",
     "static/media/fa-solid-900.woff2": "/quotes-machine/static/media/fa-solid-900.bb975c966c37455a1bc3.woff2",
@@ -12,10 +12,10 @@
     "static/media/fa-v4compatibility.woff2": "/quotes-machine/static/media/fa-v4compatibility.68577e40f3e70067b5da.woff2",
     "index.html": "/quotes-machine/index.html",
     "main.668ccbff.css.map": "/quotes-machine/static/css/main.668ccbff.css.map",
-    "main.190eb6c6.js.map": "/quotes-machine/static/js/main.190eb6c6.js.map"
+    "main.8bdbad84.js.map": "/quotes-machine/static/js/main.8bdbad84.js.map"
   },
   "entrypoints": [
     "static/css/main.668ccbff.css",
-    "static/js/main.190eb6c6.js"
+    "static/js/main.8bdbad84.js"
   ]
 }

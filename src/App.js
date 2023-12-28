@@ -5,26 +5,20 @@ import { FacebookShareButton } from "react-share";
 const siteLink = "https://barister.github.io/quotes-machine/";
 const shortUrl = `https://shorturl.at/kwEFY`;
 
-function QuoteQuery({ quoteData }) {
-  return (
-    <>
-      <i className="fa-solid fa-quote-left"></i>
-      <p id='text'>{quoteData.quote}</p>
-      <cite>- <span id='author'>{quoteData.author}</span></cite>
-    </>
-
-  );
-}
-
 function QuoteRender({ quoteData, quoteLoaded }) {
   return (
-    <blockquote className={`quote-box__content`}>
-      <CSSTransition key={quoteData.quote} in={quoteLoaded} appear={true} timeout={500} classNames='quote' unmountOnExit>
-        <div>
-          {quoteLoaded && <QuoteQuery key={quoteData.quote} quoteData={quoteData} />}
-        </div>
-      </CSSTransition>
+    <blockquote className='quote-box__content'>
+      {quoteLoaded &&
+        <CSSTransition key={quoteData.quote} in={quoteLoaded} appear={true} timeout={500} classNames='quote' unmountOnExit>
+          <div>
+            <i className="fa-solid fa-quote-left"></i>
+            <p id='text'>{quoteData.quote}</p>
+            <cite>- <span id='author'>{quoteData.author}</span></cite>
+          </div>
+        </CSSTransition>
+      }
     </blockquote>
+
   );
 }
 
@@ -33,43 +27,43 @@ function FacebookMediaButton({ quoteData }) {
     <FacebookShareButton
       url={siteLink}
       hashtag="#ourparents"
-      quote={`"${quoteData.quote}" - ${quoteData.author}`}
+      quote={`"${quoteData.quote}" - ${quoteData.author}`} // quote actually doesn't work at all
     >
       <div id='facebook-quote'>Facebook<i className="fa-brands fa-facebook" rel="noreferrer"></i></div>
     </FacebookShareButton>
   );
 }
 
-function TwitterShare({ quoteData }) {
-  const quote = quoteData.quote;
-  const tweetUnshortened = `"${quote}" - ${quoteData.author}`;
+function TwitterShare({ quoteData, setQuoteData }) {
+
+  const tweetUnshortened = `"${quoteData.quote}" - ${quoteData.author}`;
   const totalTweet = 280 - (tweetUnshortened.length + shortUrl.length + 11 + 4);
 
-  let tweetShortened = '';
-
-  if (totalTweet <= 0) {
-    const quoteShort = quote.slice(0, totalTweet);
-    tweetShortened = `"${quoteShort + '...'}" - ${quoteData.author}`;
-  } else {
-    tweetShortened = tweetUnshortened;
-  }
+  const updateShortQuote = () => {
+    if (totalTweet < 0) {
+      const quoteShort = quoteData.quote.slice(0, totalTweet);
+      setQuoteData(prev => ({ ...prev, shortQuote: `"${quoteShort + '...'}" - ${quoteData.author}` }));
+    } else {
+      setQuoteData(prev => ({ ...prev, shortQuote: tweetUnshortened }));
+    }
+  };
 
   return (
     <a
-      href={`https://twitter.com/intent/tweet?text=${tweetShortened}&hashtags=ourparents&url=${shortUrl}`}
+      href={`https://twitter.com/intent/tweet?text=${quoteData.shortQuote}&hashtags=ourparents&url=${shortUrl}`}
       id='tweet-quote'
       target='_blank'
       rel='noreferrer'
+      onClick={updateShortQuote}  // Вызываем функцию обновления при клике
     >
       Twitter<i className="fa-brands fa-square-twitter"></i>
     </a>
-  )
+  );
 }
 
 export default function App() {
   const [quoteData, setQuoteData] = useState({
     quote: '',
-    shortQuote: '',
     author: ''
   });
 
